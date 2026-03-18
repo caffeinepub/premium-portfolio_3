@@ -1,0 +1,313 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,300;1,14..32,400&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+
+    /* Light mode */
+    --background: 1 0 0;
+    --foreground: 0.12 0.01 250;
+    --card: 0.975 0.004 250;
+    --card-foreground: 0.12 0.01 250;
+    --popover: 1 0 0;
+    --popover-foreground: 0.12 0.01 250;
+    --primary: 0.55 0.2 265;
+    --primary-foreground: 1 0 0;
+    --secondary: 0.93 0.008 250;
+    --secondary-foreground: 0.12 0.01 250;
+    --muted: 0.94 0.006 250;
+    --muted-foreground: 0.48 0.012 250;
+    --accent: 0.93 0.008 250;
+    --accent-foreground: 0.12 0.01 250;
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 1 0 0;
+    --border: 0.88 0.01 250;
+    --input: 0.88 0.01 250;
+    --ring: 0.55 0.2 265;
+    --chart-1: 0.646 0.222 41.116;
+    --chart-2: 0.6 0.118 184.704;
+    --chart-3: 0.55 0.2 265;
+    --chart-4: 0.828 0.189 84.429;
+    --chart-5: 0.769 0.188 70.08;
+    --sidebar: 0.97 0.005 250;
+    --sidebar-foreground: 0.12 0.01 250;
+    --sidebar-primary: 0.55 0.2 265;
+    --sidebar-primary-foreground: 1 0 0;
+    --sidebar-accent: 0.93 0.008 250;
+    --sidebar-accent-foreground: 0.12 0.01 250;
+    --sidebar-border: 0.88 0.01 250;
+    --sidebar-ring: 0.55 0.2 265;
+
+    /* Custom tokens */
+    --accent-blue: 0.55 0.2 265;
+    --surface: 0.97 0.005 250;
+    --surface-2: 0.93 0.008 250;
+  }
+
+  .dark {
+    /* Dark mode — premium near-black */
+    --background: 0.09 0.01 250;
+    --foreground: 0.96 0.005 250;
+    --card: 0.14 0.012 250;
+    --card-foreground: 0.96 0.005 250;
+    --popover: 0.14 0.012 250;
+    --popover-foreground: 0.96 0.005 250;
+    --primary: 0.58 0.22 265;
+    --primary-foreground: 1 0 0;
+    --secondary: 0.19 0.015 250;
+    --secondary-foreground: 0.96 0.005 250;
+    --muted: 0.19 0.015 250;
+    --muted-foreground: 0.62 0.012 250;
+    --accent: 0.22 0.016 250;
+    --accent-foreground: 0.96 0.005 250;
+    --destructive: 0.704 0.191 22.216;
+    --destructive-foreground: 1 0 0;
+    --border: 0.24 0.015 250;
+    --input: 0.24 0.015 250;
+    --ring: 0.58 0.22 265;
+    --chart-1: 0.488 0.243 264.376;
+    --chart-2: 0.696 0.17 162.48;
+    --chart-3: 0.769 0.188 70.08;
+    --chart-4: 0.627 0.265 303.9;
+    --chart-5: 0.645 0.246 16.439;
+    --sidebar: 0.14 0.012 250;
+    --sidebar-foreground: 0.96 0.005 250;
+    --sidebar-primary: 0.58 0.22 265;
+    --sidebar-primary-foreground: 1 0 0;
+    --sidebar-accent: 0.19 0.015 250;
+    --sidebar-accent-foreground: 0.96 0.005 250;
+    --sidebar-border: 0.24 0.015 250;
+    --sidebar-ring: 0.58 0.22 265;
+
+    /* Custom tokens */
+    --accent-blue: 0.58 0.22 265;
+    --surface: 0.14 0.012 250;
+    --surface-2: 0.19 0.015 250;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Inter", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  /* ── Refined scroll-reveal: subtle offset, expo-out easing ─────────────── */
+  .section-hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    /* Expo-out: fast start, gentle settle */
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s
+      cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .section-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Glassmorphism navbar ───────────────────────────────────────────────── */
+  .glass {
+    background: oklch(var(--surface) / 0.82);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid oklch(var(--border));
+  }
+
+  .dark .glass {
+    background: oklch(0.11 0.012 250 / 0.88);
+    border: 1px solid oklch(0.28 0.015 250 / 0.5);
+  }
+
+  /* ── Color utilities ────────────────────────────────────────────────────── */
+  .text-accent-blue {
+    color: oklch(var(--accent-blue));
+  }
+  .bg-accent-blue {
+    background-color: oklch(var(--accent-blue));
+  }
+  .border-accent-blue {
+    border-color: oklch(var(--accent-blue));
+  }
+
+  /* ── Hero gradient text (the signature accent word) ────────────────────── */
+  .hero-gradient-text {
+    background: linear-gradient(
+      115deg,
+      oklch(0.65 0.22 255),
+      oklch(0.58 0.24 265),
+      oklch(0.62 0.2 280)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* Subtle shimmer on load */
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite alternate;
+  }
+
+  /* ── Skill bar ──────────────────────────────────────────────────────────── */
+  .skill-bar-fill {
+    position: relative;
+    transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Glowing tip at the end of the filled bar */
+  .skill-bar-fill::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 0 8px 2px oklch(0.65 0.22 265 / 0.8);
+    opacity: 0;
+    transition: opacity 0.3s ease 1.2s;
+  }
+
+  .skill-bar-fill.bar-filled::after {
+    opacity: 1;
+  }
+
+  /* ── Card hover — premium lift, no scale jitter ─────────────────────────── */
+  .card-hover {
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s
+      cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px oklch(0 0 0 / 0.12), 0 8px 16px oklch(0 0 0 / 0.08);
+  }
+
+  .dark .card-hover:hover {
+    box-shadow: 0 20px 60px oklch(0 0 0 / 0.55), 0 4px 16px oklch(0 0 0 / 0.3);
+  }
+
+  /* ── Button glow — static on hover, NO continuous pulse ────────────────── */
+  .btn-primary {
+    background: linear-gradient(
+      135deg,
+      oklch(0.58 0.22 265),
+      oklch(0.52 0.24 278)
+    );
+    transition: box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s
+      cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 0 0 1px oklch(0.58 0.22 265 / 0.3), 0 8px 24px
+      oklch(0.58 0.22 265 / 0.35);
+    transform: translateY(-1px);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 0 0 1px oklch(0.58 0.22 265 / 0.2);
+  }
+
+  /* ── Input focus ring — accent blue ────────────────────────────────────── */
+  .input-premium {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color
+      0.2s ease;
+  }
+
+  .input-premium:focus {
+    outline: none;
+    border-color: oklch(var(--accent-blue));
+    box-shadow: 0 0 0 3px oklch(var(--accent-blue) / 0.12), 0 1px 3px
+      oklch(0 0 0 / 0.06);
+  }
+
+  /* ── Subtle hero noise texture ──────────────────────────────────────────── */
+  .hero-noise::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    z-index: 1;
+  }
+}
+
+/* ── Keyframes ──────────────────────────────────────────────────────────────── */
+@keyframes shimmer {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes orb-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -20px) scale(1.05);
+  }
+  66% {
+    transform: translate(-20px, 15px) scale(0.97);
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .section-hidden {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .skill-bar-fill {
+    transition: none;
+  }
+  .hero-gradient-text {
+    animation: none;
+    background-position: 0% 50%;
+  }
+  .card-hover,
+  .btn-primary {
+    transition: none;
+  }
+}
